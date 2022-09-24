@@ -34,6 +34,7 @@ import (
 	"github.com/weaveworks/common/logging"
 	"google.golang.org/grpc/metadata"
 
+	vmlibstorage "github.com/VictoriaMetrics/VictoriaMetrics/lib/storage"
 	"github.com/grafana/mimir/pkg/storage/bucket"
 	"github.com/grafana/mimir/pkg/storage/tsdb"
 	"github.com/grafana/mimir/pkg/storegateway/indexcache"
@@ -349,6 +350,9 @@ func (u *BucketStores) LabelValues(ctx context.Context, req *storepb.LabelValues
 	}
 
 	return store.LabelValues(ctx, req)
+}
+
+func (u *BucketStores) SearchMetricNames(tfss []*vmlibstorage.TagFilters, tr vmlibstorage.TimeRange, maxMetrics int, deadline uint64) ([]vmlibstorage.MetricName, error) {
 }
 
 // scanUsers in the bucket and return the list of found users. If an error occurs while
